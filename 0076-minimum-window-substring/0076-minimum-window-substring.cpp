@@ -5,46 +5,42 @@ public:
         vector<string> ans;
         map<char,int> mp;
 
-        for(auto i: t){
+        for(auto i: t)
+        {
             mp[i]++;
         }
 
-        // Starting Point of window
-        int i=0;
-        // Ending Point of window
-        int j=0;
+        int start=0;
+        int end=0;
         int count = mp.size();
-        // st and mini for storing starting and ending point of our resultant substring
         int st=0;
         int mini=INT_MAX;
 
-        // Actual Approach
-        while(j<s.size()){
-            mp[s[j]]--;
+        while(end<s.size()){
+            mp[s[end]]--;
 
-            if(mp[s[j]]==0){
+            if(mp[s[end]]==0){
                 count--;
             }
 
             if(count==0){
                 while(count==0){
-                   if((j-i+1)<mini){
-                       mini=j-i+1;
-                       st=i;
+                   if((end-start+1)<mini){
+                       mini=end-start+1;
+                       st=start;
                    }
 
-                   mp[s[i]]++;
+                   mp[s[start]]++;
 
-                   if(mp[s[i]]>0){
+                   if(mp[s[start]]>0){
                        count++;
                    }
-                   i++;
+                   start++;
                 }
             }
-            j++;
+            end++;
         }
       
-        // If No valid ans possible return empty string else return the final substring 
         if(mini==INT_MAX){
             return "";
         }
